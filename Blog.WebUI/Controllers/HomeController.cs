@@ -1,4 +1,5 @@
-﻿using Blog.WebUI.Models;
+﻿using Blog.Service.Services.Abstracts;
+using Blog.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,17 @@ namespace Blog.WebUI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IArticleService _articleService;
+        public HomeController(ILogger<HomeController> logger, IArticleService articleService)
         {
             _logger = logger;
+            _articleService = articleService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var articles = await _articleService.GetAllArticlesAsync();
+            return View(articles);
         }
 
         public IActionResult Privacy()

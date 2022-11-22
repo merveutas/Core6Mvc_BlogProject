@@ -1,12 +1,16 @@
 using Blog.Data.Context;
+using Blog.Data.Extentions;
+using Blog.Service.Extentions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.LoadDataLayerExtention(builder.Configuration); //Data -> Extentions -> DataLayerExtention
+builder.Services.LoadServiceLayerExtention(); //Services -> Extentions -> ServiceLayerExtention
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<AppDbContext>(opt=>opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
