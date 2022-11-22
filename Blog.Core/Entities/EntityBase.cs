@@ -13,6 +13,7 @@ namespace Blog.Core.Entities
         {
             Id = Guid.NewGuid();
             CreatedDate = DateTime.Now;
+            DeletedBy = "";
         }
 
         public virtual Guid Id { get; set; } 
